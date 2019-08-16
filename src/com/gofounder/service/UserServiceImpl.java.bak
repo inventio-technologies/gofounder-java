@@ -1,0 +1,190 @@
+package com.gofounder.service;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+
+import com.gofounder.dao.UserDao;
+import com.gofounder.model.Announcement;
+import com.gofounder.model.Emp;
+import com.gofounder.model.Login;
+import com.gofounder.model.MyInvitations;
+import com.gofounder.model.Product;
+import com.gofounder.model.Sent_Invitation;
+import com.gofounder.model.User;
+import com.gofounder.model.User_Link;
+
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private UserDao userDAO;
+ 
+	
+	
+	 public User validateUser(Login login) {
+		    return userDAO.validateUser(login);
+		    }
+	 
+	 public List<User_Link> showShareHistory(User user) {
+		    return userDAO.showShareHistory(user);
+		    }
+	 
+	 public User showUserpicture(User user) {
+		    return userDAO.showUserpicture(user);
+		    }
+	 
+	 public void register(User user) {
+		 userDAO.register(user);
+		    
+		    }
+	 
+	 public void save(Product product) {
+		 userDAO.save(product);
+		    
+		    }
+	 
+	 public List<Product> getProduct() {
+		return  userDAO.getProduct();
+		    
+		    }
+	 
+	 public int save(Emp p){    
+	        
+	        return userDAO.save(p);    
+	    } 
+	 
+	 public int saveShareHistory(User user,User_Link user_link){    
+	        
+	        return userDAO.saveShareHistory(user,user_link);    
+	    } 
+	 
+	 
+	 
+	 public List<Emp> getEmployees(){    
+	        
+	        return userDAO.getEmployees();    
+	    } 
+	 
+	 
+	 
+	 
+	 public Emp getEmpById(int id){    
+		 
+		 return userDAO.getEmpById(id);    
+	         
+	    }  
+	 
+	 
+	 public int updateEmp(Emp p){   
+		 
+		 return userDAO.updateEmp(p);    
+	          
+	    }  
+	 
+	 public int deleteEmp(int id){  
+		 
+		 return userDAO.deleteEmp(id);    
+	        
+	    } 
+	 
+	 public int saveAnnounce(Announcement announcement) {
+		 
+		 return userDAO.saveAnnounce(announcement);   
+   	  
+     	 // System.out.println("F**********************************");
+    	  
+         }
+	 
+	 public List<Announcement> getAnnounceList(){    
+		 return userDAO.getAnnounceList();   
+	    } 
+	 
+	  public Announcement getAnnounceById(int id){  
+		  
+		  return userDAO.getAnnounceById(id);  
+	    
+	    }  
+	  
+	  public int updateAnnounce(Announcement p){   
+		  
+		  return userDAO.updateAnnounce(p);  
+	        
+	    }  
+	  
+	  public int updatePassword(User user){   
+		  
+		  return userDAO.updatePassword(user);  
+	        
+	    }  
+	  
+	  
+	  
+	  public int deleteAnnounce(int id){    
+		  
+		  return userDAO.deleteAnnounce(id);  
+	        
+	    } 
+	    
+	 
+	 
+      public int userImgeSaveInDb(User user){   
+		  
+		  return userDAO.userImgeSaveInDb(user);  
+	        
+	    }  
+      
+ public int userLibraryImgeUpload(User user){   
+		  
+		  return userDAO.userLibraryImgeUpload(user);  
+	        
+	    }  
+      
+ 	 public User getUserDetails(Login login) {
+		    return userDAO.getUserDetails(login);
+		    }
+ 	 
+ 	public  List<String> getLibrayPicList(User user){
+ 		 
+ 		return userDAO.getLibrayPicList(user);
+ 		 
+ 	 }
+ 	
+ 	public Map<Integer, String> fetchEmailTemplate() {
+		Map<Integer, String> emailtempMap = new HashMap<Integer, String>();
+
+		List<MyInvitations> templateList = userDAO.fetchEmailTemplate();
+		if(templateList != null && templateList.size()>0){
+			for (MyInvitations item : templateList) {
+				emailtempMap.put(item.getId(), item.getTitle());
+			}
+		}
+		return emailtempMap;
+	}
+
+ // CSV for SENT INVITATION-Share History
+ 	public List<Sent_Invitation> showShareHistory_sentinvitaion(User user) {
+ 		return userDAO.showShareHistory_sentinvitaion(user);
+ 	}
+ 	
+ 	
+ 	
+ 	 public int userRegistration(User user) {
+		 int result = userDAO.userRegistration(user);	
+		 return result;
+	 }
+ 	 
+ 	@Override
+	public int verifyEmail(String email) {
+		
+		return userDAO.emailVerify(email);
+	}
+ 	
+    
+
+}
